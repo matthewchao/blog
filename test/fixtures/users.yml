@@ -3,6 +3,8 @@
 one:
   name: MyString
   email: MyString
+  # password: 'foobar'
+  # password_confirmation: 'foobar'
 
 two:
   name: MyString
