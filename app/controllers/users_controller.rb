@@ -36,15 +36,23 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    user_params[:email].downcase!
     @user = User.new(user_params)
-    # @user.email = @user.email.downcase
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :new }
+        format.html { 
+          render :new
+          # below is experimenting with trying not to redirect to /users 
+          # after a failed signup and instead staying on /users/new -- this is against convention
+          # and the user also loses the progress in writing the form
+          # whereas the above render :new doesn't change @user and so form_with in _form
+          # can fill in all fields with what the customer already typed
+          # flash.alert = "uh oh"
+          # flash.keep
+          # redirect_to new_user_url
+        }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

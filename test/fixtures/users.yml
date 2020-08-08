@@ -8,4 +8,11 @@ one:
 
 two:
   name: MyString
-  email: MyString
+  email: MyString2
+
+
+<% (1..100).each do |i| %>
+<%= i %>:
+  name: user_<%= i %>
+  email: email_<%= 1 %>
+<% end %>
