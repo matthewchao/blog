@@ -5,16 +5,41 @@ class UserTest < ActiveSupport::TestCase
   #   assert true
   # end
   def setup
-    @user = User.new(name: 'a', email: 'B')
+  end
+
+  test "name and email should be valid" do
+    user = User.new(
+      :name => 'a',
+      :email => 'b@c.com',
+      :password => 'foobar'
+    )
+    assert user.valid?
   end
 
   test "no name should be invalid" do
-    @user.name = ''
-    assert_not @user.valid?
+    user = User.new(
+      :name => '  ',
+      :email => 'b@c.com',
+      :password => 'foobar'
+    )
+    assert_not user.valid?
   end
 
   test "no email should be invalid" do
-    @user.email = ''
-    assert_not @user.valid?
+    user = User.new(
+      :name => 'a',
+      :email => ' ',
+      :password => 'foobar'      
+    )
+    assert_not user.valid?
+  end
+
+  test "no password should be invalid" do
+    user = User.new(
+      :name => 'a',
+      :email => 'b@c.com',
+      :password => '   '
+    )
+    assert_not user.valid?
   end
 end
