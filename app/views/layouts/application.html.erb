@@ -10,6 +10,10 @@
   </head>
 
   <body>
+  <% flash.each do |key, value| %>
+      <p id="<%= key %>"><%= value %></p>      
+  <% end %>
+  
     <%= yield %> 
     <%# below adds debug information %>
     <%= debug(params) if Rails.env.development? %>

@@ -44,14 +44,15 @@ class UsersController < ApplicationController
       else
         format.html { 
           render :new
-          # below is experimenting with trying not to redirect to /users 
-          # after a failed signup and instead staying on /users/new -- this is against convention
+
+          # below was a successful experiment in trying not to redirect to /users 
+          # after a failed signup and instead staying on /users/new -- However this is against convention
           # and the user also loses the progress in writing the form
-          # whereas the above render :new doesn't change @user and so form_with in _form
+          # whereas the above render :new doesn't change @user and so form_with in _form view
           # can fill in all fields with what the customer already typed
-          # flash.alert = "uh oh"
-          # flash.keep
-          # redirect_to new_user_url
+          # One potential remedy is to pass the current @user as a parameter
+          # but the problem is that redirect_to is a GET request which doesn't take parameters
+          # redirect_to new_user_url, alert: 'User was not successfully created.'
         }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
