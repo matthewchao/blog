@@ -10,10 +10,22 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+
+    # EXPERIMENT BELOW WITH PASSING THE PARAMS FROM CREATE TO FIND A USER HERE;
+    # @user = User.find(params[:id])
+    # if @user.nil?
+    #   @user = User.new
+    # end
+    # NB: it didn't make sense to do above when we issue a get request to users/3
+    # then @user is already implicity set to User.find(3) in the "show" view
   end
 
   # GET /users/new
   def new
+    # This @user instance will be available in the _form view
+    # Note we can just refer to it as user (without the '@') there!
+    # The below is so that the part of the form which shows errors
+    # doesn't return no-method-defined error when we try to call user.errors
     @user = User.new
   end
 

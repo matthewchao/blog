@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   before_save :downcase_the_email
 
-
+  attr_accessor :hi
 
 private
   def downcase_the_email
