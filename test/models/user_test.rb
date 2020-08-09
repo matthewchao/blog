@@ -5,7 +5,7 @@ class UserTest < ActiveSupport::TestCase
   #   assert true
   # end
   def setup
-    @user = users(:one)
+    @user = users('user_1')
   end
 
   # the below series indicates that fixtures are 

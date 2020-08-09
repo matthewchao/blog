@@ -1,18 +1,23 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  email: MyString
+# one:
+#   name: MyString
+#   email: MyString
   # password: 'foobar'
   # password_confirmation: 'foobar'
 
-two:
-  name: MyString
-  email: MyString2
+# two:
+#   name: MyString
+#   email: MyString2
 
 
-<% (1..100).each do |i| %>
-<%= i %>:
+<% (1..2).each do |i| %>
+user_<%= i %>:
   name: user_<%= i %>
   email: email_<%= 1 %>
+  # below doesn't work because there is no DB column for password
+  # see https://stackoverflow.com/questions/30894771/rails-fixtures-with-bcrypt
+  # password: 'foobar'
+  password_digest: <%= BCrypt::Password.create('foobar') %>
+
 <% end %>
