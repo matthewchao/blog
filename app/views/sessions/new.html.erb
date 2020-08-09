@@ -9,7 +9,7 @@ params[:session], so for instance we can no longer do params[:email] %>
 logins to trigger validations of @user; only creation or updates of the @user object
 should do that.%>
 
-<%= form_with(url: sessions_path, scope: :session, local: true) do |form| %>
+<%= form_with(url: login_path, scope: :session, local: true) do |form| %>
   <% if false %>
   <% if @user.errors.any? %>
     <div id="error_explanation">

@@ -25,4 +25,12 @@ class SessionsController < ApplicationController
       # understanding that the 
     end
   end
+
+  def destroy
+    reset_session
+    # below may (???) not be necessary
+    # because we would essentially be setting sessions[:user_id]=nil
+    # helpers.log_out
+    redirect_to root_path
+  end
 end
