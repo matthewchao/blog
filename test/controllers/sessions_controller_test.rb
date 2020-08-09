@@ -35,4 +35,10 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_nil session[:user_id]
   end
 
+  test "resetting session should make not logged in" do
+    get root_path
+    assert_response :success
+    @request.reset_session
+    assert_not logged_in?
+  end
 end
