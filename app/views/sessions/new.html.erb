@@ -1,0 +1,45 @@
+<h1>Sessions#new</h1>
+<p>This is the page for logging in, i.e., Sessions#create </p>
+
+<%= form_with(url: sessions_path, method: "post", local: true) do |form| %>
+  <%# 
+  WHY DOES 'user' NOT WORK HERE? But @user does?
+  VS in the user/new form, both '@user' and 'user' work?
+  Answer:  IDK, maybe related to scope?
+  UPD: The view can access all variables defined in the controller that is associated with it, e.g.,
+  this view can access variables defined in sessions_controller#new
+  But the difference is the line 'render 'form', user: @user' used in the users/new view
+  
+  By the way, the below may never actually be triggered, since we do not expect
+  logins to trigger validations of @user; only creation or updates of the @user object
+  should do that.
+  %>
+  <% if false %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from logging in:</h2>
+
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div class="actions">
+    <%# need to put "Log in" below" otherwise the rails default is "Save" %>
+    <%= form.submit "Log in" %>
+  </div>
+<% end %>
