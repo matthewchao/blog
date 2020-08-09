@@ -1,0 +1,12 @@
+<nav class="menu">
+  <ul>
+    <li><%= link_to "Home", root_path %></li>
+    <%# <li><a href="#">About</a></li> %>
+    <%# <li><a href="#">Contact</a></li> %>
+    <% if logged_in? %>
+      <li>Logged in as <%= current_user.name %></li>
+    <% else %>
+      <li><%= link_to "Log in", sessions_new_path %></li>
+    <% end %>
+  </ul>
+</nav>

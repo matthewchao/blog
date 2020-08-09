@@ -12,13 +12,13 @@ class SessionsController < ApplicationController
     # on the user model
     if @user && @user.authenticate( params[:session][:password] )
       #successful session creation here
-      puts 'good login'
+      # puts 'good login'
+      reset_session
+      helpers.log_in @user
       flash[:notice] = 'Logged in!'
       redirect_to @user
     else
-      puts 'bad login'
-      # note the use of flash.now; this is because render doesn't count as a "request"
-      # and so the user would 
+      # puts 'bad login'
       flash[:alert] = 'Invalid combination'
       render :new
       # re-render the sessions new form,
