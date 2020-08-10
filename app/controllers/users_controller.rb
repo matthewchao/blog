@@ -95,6 +95,10 @@ class UsersController < ApplicationController
     end
 
     def correct_user
+      # @user is the one found from the url, i.e., user #3 in users/3/edit
+      if !current_user?(@user)
+        redirect_to root_path, alert: 'Wrong user!'
+      end
       
     end
     # Use callbacks to share common setup or constraints between actions.
