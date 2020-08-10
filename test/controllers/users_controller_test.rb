@@ -21,7 +21,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       password: "foobar", password_confirmation: "foobar"} }
     end
     assert User.last.email==User.last.email.downcase
-    assert_redirected_to user_url(User.last)
+    assert_redirected_to login_path
   end
 
   test "should not create user if passwords don't match" do
@@ -38,9 +38,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get edit" do
+  test "should get edit" do  
     get edit_user_url(@user)
-    assert_response :success
+    assert_redirected_to login_path
   end
 
   # test "should update user" do
@@ -48,11 +48,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   #   assert_redirected_to user_url(@user)
   # end
 
-  test "should destroy user" do
-    assert_difference('User.count', -1) do
-      delete user_url(@user)
-    end
+  # test "should destroy user" do
+  #   assert_difference('User.count', -1) do
+  #     delete user_url(@user)
+  #   end
 
-    assert_redirected_to users_url
-  end
+  #   assert_redirected_to users_url
+  # end
 end
