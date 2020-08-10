@@ -45,7 +45,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-        redirect_to @user, notice: 'User was successfully created.' 
+        redirect_to login_path, notice: 'User successfully created. You can now log in.' 
     else
         # the failed save will add stuff to @users.errors because of the validation step
         # performed in .save
