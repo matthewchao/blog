@@ -55,6 +55,10 @@ class UserUpdateActionsTest < ActionDispatch::IntegrationTest
   end
 
   test "log in as wrong user and attempt to destroy other user" do
-    assert false
+    log_in_as(@user1)
+    # puts "getting edit path of user #{@user2.id}"
+    delete user_path(@user2)
+    assert_response :redirect
+    assert_redirected_to root_path
   end
 end
