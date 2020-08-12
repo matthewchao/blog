@@ -3,7 +3,7 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 6 }
-
+  validates :password, presence: true, on: :update
   before_save :downcase_the_email
 
   attr_accessor :hi
