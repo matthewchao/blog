@@ -12,7 +12,9 @@ module SessionsHelper
   end
 
   def current_user
-    User.find(session[:user_id])
+    if not session[:user_id].nil?
+      User.find(session[:user_id])
+    end
   end
 
   def current_user?(user)

@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user, only: [:edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :set_logged_in_user, only: [:index, :show]
 
   # GET /users
   # GET /users.json
@@ -109,6 +110,10 @@ class UsersController < ApplicationController
       # puts "params[id] is #{params[:id]}"
       # puts "set user as #{@user.id}"
       # puts @user.nil? ? "couldn't set user" : "successfuly set user!"
+    end
+
+    def set_logged_in_user
+      @logged_in_user = current_user
     end
 
     # Only allow a list of trusted parameters through.
