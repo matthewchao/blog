@@ -11,10 +11,10 @@
 #   email: MyString2
 
 
-<% (1..2).each do |i| %>
+<% (1..3).each do |i| %>
 user_<%= i %>:
   name: user_<%= i %>
-  email: email_<%= 1 %>
+  email: email_<%= i %>
   # below doesn't work because there is no DB column for password
   # see https://stackoverflow.com/questions/30894771/rails-fixtures-with-bcrypt
   # password: 'foobar'

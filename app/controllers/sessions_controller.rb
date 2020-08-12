@@ -1,22 +1,23 @@
 class SessionsController < ApplicationController
   def new
-    @user = User.last
+    @user = User.new
   end
 
   def create
+    # puts "beginning new session creation"
     puts params[:email] #this successfully logs the passed-in email
     puts params[:password] #this doesn't work, how does rails know not to do this??
     # on the other hand debug(params) exposes it...
-    @user = User.find_by email: params[:session][:email] #but replace this 
+    user = User.find_by email: params[:session][:email] #but replace this 
     # recall that .authenticate is automatically provided by using has_secure_passowrd
     # on the user model
-    if @user && @user.authenticate( params[:session][:password] )
+    if user && user.authenticate( params[:session][:password] )
       #successful session creation here
       # puts 'good login'
       reset_session
-      helpers.log_in @user
+      log_in user
       flash[:notice] = 'Logged in!'
-      redirect_to @user
+      redirect_to user
     else
       # puts 'bad login'
       flash[:alert] = 'Invalid combination'
@@ -24,6 +25,7 @@ class SessionsController < ApplicationController
       # re-render the sessions new form,
       # understanding that the 
     end
+    # puts "finishing new session creation"
   end
 
   def destroy

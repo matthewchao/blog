@@ -37,7 +37,6 @@ class UsersController < ApplicationController
     # from here we can see that params[:id] will come from
     # users/:id, e.g., users/3/edit being routed here
     # means we params[:id]=3
-
   end
 
   # POST /users
@@ -88,23 +87,30 @@ class UsersController < ApplicationController
 
   private
     def logged_in_user
-      puts logged_in?  ? "logged in!" : "not logged in!"
+      # puts logged_in?  ? "logged in already!" : "not logged in yet!"
       if  !logged_in?
         redirect_to login_path, alert: 'Not logged in!'
+      else 
+        # puts "logged in as #{current_user.id}"
       end
     end
 
     def correct_user
       # @user is the one found from the url, i.e., user #3 in users/3/edit
+      @user = User.find(params[:id])
+      # puts "current = #{current_user.id}, @user from edit url = #{@user.id}"
       if !current_user?(@user)
         redirect_to root_path, alert: 'Wrong user!'
+        # puts "redirected"
       end
       
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
-      puts @user.nil? ? "couldn't set user" : "successfuly set user!"
+      # puts "params[id] is #{params[:id]}"
+      # puts "set user as #{@user.id}"
+      # puts @user.nil? ? "couldn't set user" : "successfuly set user!"
     end
 
     # Only allow a list of trusted parameters through.
