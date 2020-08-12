@@ -65,14 +65,21 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
-      else
-        format.html { render :edit }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    # We basically want to ensure that only usernames and emails
+    # are changed through this action; we will make a different flow
+    # for changing passwords (which involves entering the old password)
+    # puts "user params are:  #{params[:user].inspect}"
+    # if @user.authenticate(params[:user][:password])
+    #   puts "#{params[:user][:password]} was the right password"
+    # else
+    #   puts "#{params[:user][:password]} not right password"
+    # end
+
+    if @user.authenticate(params[:user][:password]) && @user.update(user_params)
+      redirect_to @user, notice: 'User was successfully updated.' 
+    else
+      flash.now[:alert] = 'Update unsuccessful'
+      render :edit
     end
   end
 

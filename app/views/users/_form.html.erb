@@ -40,11 +40,12 @@
     <%= form.label :password %>
     <%= form.password_field :password %>
   </div>
-
+  <% if is_form_signup %>
   <div class="field">
     <%= form.label :password_confirmation %>
     <%= form.password_field :password_confirmation %>
   </div>
+  <% end %>
   <div class="actions">
     <%= form.submit %>
   </div>
