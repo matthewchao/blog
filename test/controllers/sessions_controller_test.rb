@@ -27,6 +27,11 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     assert_nil session[:user_id]
   end
+  
+  test "logout when not logged in should work" do
+    post logout_path
+    assert_response :redirect
+  end
 
   test "resetting session should make not logged in" do
     get root_path
