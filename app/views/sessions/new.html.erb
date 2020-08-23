@@ -14,17 +14,17 @@ should do that.%>
 
 <%= form_with(url: login_path, scope: :session, local: true) do |form| %>
   <% if false %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from logging in:</h2>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from logging in:</h2>
 
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
   <% end %>
   
   <%= render 'shared/flash' %>
@@ -38,9 +38,18 @@ should do that.%>
     <%= form.label :password %>
     <%= form.password_field :password %>
   </div>
+  
+  
+
 
   <div class="actions">
     <%# need to put "Log in" below" otherwise the rails default is "Save" %>
     <%= form.submit "Log in" %>
+  </div>
+
+  <div class="field">
+
+    <%= form.label :remember_me %>
+    <%= form.check_box :remember_me %>
   </div>
 <% end %>
