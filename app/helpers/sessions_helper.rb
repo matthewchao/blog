@@ -20,4 +20,11 @@ module SessionsHelper
   def current_user?(user)
     current_user==user
   end
+
+  def remember(user)
+    new_remember_token = SecureRandom.base64()
+    cookies.encrypted.permanent[:remember_token] = new_remember_token
+    user.remember_token = new_remember_token
+    
+  end
 end

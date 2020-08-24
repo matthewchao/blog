@@ -15,6 +15,15 @@ class SessionsController < ApplicationController
       #successful session creation here
       # puts 'good login'
       reset_session
+      if params[:session][:remember_me]
+        
+        # Generate a random token to store in the cookies,
+        # and also use has_secure_password remember_token to store this in the database
+        # for future authentication
+        remember(user)
+      else
+        # Same as before;
+      end
       log_in user
       flash[:notice] = 'Logged in!'
       redirect_to user
