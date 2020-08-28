@@ -10,7 +10,7 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  include SessionsHelper
+  # include SessionsHelper
 end
 
 class ActionDispatch::IntegrationTest
@@ -19,5 +19,22 @@ class ActionDispatch::IntegrationTest
   def log_in_as(user, password: 'foobar')
     post login_path, params: { session: { email: user.email,
                                           password: password } }
+  end
+
+  def log_in_and_remember_as(user, password: 'foobar')
+    post login_path, params: { session: {
+      email: user.email,
+      password: password,
+      remember_me: true
+    }}
+  end
+
+
+  def logged_in_session?
+    # puts "checking #{session[:user_id]}"
+    # puts session[:user_id].nil? ? "nil, uh oh" : "not nil!" 
+    logged_in_via_session = !session[:user_id].nil? && !User.find(session[:user_id]).nil?
+    return logged_in_via_session
+
   end
 end

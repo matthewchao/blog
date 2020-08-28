@@ -19,6 +19,27 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_equal session[:user_id], @user1.id
   end
 
+  test "login_with_remember should work" do
+    assert_nil cookies[:user_id]
+    assert_nil cookies[:remember_token]
+    log_in_and_remember_as(@user1)
+    assert_response :redirect
+    assert_redirected_to @user1
+    assert_not_nil cookies[:user_id]
+    assert_not_nil cookies[:remember_token]
+  end
+
+  test "remembered user cookies should persist" do
+    log_in_and_remember_as(@user1)
+    # https://stackoverflow.com/a/33786100/5418498 for why we use @request
+    @request.reset_session
+    assert_not_nil cookies[:user_id]
+    assert_not_nil cookies[:remember_token]
+    assert_nil session[:user_id]
+    # now for a more serious test that it is logged in
+    # assert logged_in?
+  end
+
 
   test "logout should work" do
     log_in_as(@user1)
@@ -37,6 +58,6 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     get root_path
     assert_response :success
     @request.reset_session
-    assert_not logged_in?
+    assert_not logged_in_session?
   end
 end

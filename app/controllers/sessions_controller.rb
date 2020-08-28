@@ -16,13 +16,7 @@ class SessionsController < ApplicationController
       # puts 'good login'
       reset_session
       if params[:session][:remember_me]
-        
-        # Generate a random token to store in the cookies,
-        # and also use has_secure_password remember_token to store this in the database
-        # for future authentication
         remember(user)
-      else
-        # Same as before;
       end
       log_in user
       flash[:notice] = 'Logged in!'
@@ -38,10 +32,14 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    user = current_user
+    user.remember_token = nil if !user.nil?
     reset_session
     # below may (???) not be necessary
     # because we would essentially be setting sessions[:user_id]=nil
     # helpers.log_out
+    cookies.delete :user_id
+    cookies.delete :remember_token
     redirect_to root_path
   end
 end
