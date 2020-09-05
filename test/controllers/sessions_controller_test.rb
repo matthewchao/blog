@@ -11,11 +11,13 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "login should work" do
+  test "login without remember should work, and not remember" do
     log_in_as(@user1)
     assert_response :redirect
     assert_redirected_to @user1
     assert_not_nil session[:user_id]
+    assert_nil cookies[:user_id]
+    assert_nil cookies[:remember_token]
     assert_equal session[:user_id], @user1.id
   end
 

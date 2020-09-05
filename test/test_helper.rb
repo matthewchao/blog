@@ -18,14 +18,14 @@ class ActionDispatch::IntegrationTest
   # Log in as a particular user.
   def log_in_as(user, password: 'foobar')
     post login_path, params: { session: { email: user.email,
-                                          password: password } }
+                                          password: password, remember_me: "0" } }
   end
 
   def log_in_and_remember_as(user, password: 'foobar')
     post login_path, params: { session: {
       email: user.email,
       password: password,
-      remember_me: true
+      remember_me: "1"
     }}
   end
 
@@ -33,7 +33,7 @@ class ActionDispatch::IntegrationTest
   def logged_in_session?
     # puts "checking #{session[:user_id]}"
     # puts session[:user_id].nil? ? "nil, uh oh" : "not nil!" 
-    logged_in_via_session = !session[:user_id].nil? && !User.find(session[:user_id]).nil?
+    logged_in_via_session = !session[:user_id].nil? && !User.find_by( id: session[:user_id]).nil?
     return logged_in_via_session
 
   end

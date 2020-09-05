@@ -103,7 +103,7 @@ class UsersController < ApplicationController
 
     def correct_user
       # @user is the one found from the url, i.e., user #3 in users/3/edit
-      @user = User.find(params[:id])
+      @user = User.find_by( id: params[:id])
       # puts "current = #{current_user.id}, @user from edit url = #{@user.id}"
       if !current_user?(@user)
         redirect_to root_path, alert: 'Wrong user!'
@@ -113,7 +113,7 @@ class UsersController < ApplicationController
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find_by( id: params[:id])
       # puts "params[id] is #{params[:id]}"
       # puts "set user as #{@user.id}"
       # puts @user.nil? ? "couldn't set user" : "successfuly set user!"

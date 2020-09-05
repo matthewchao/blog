@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       #successful session creation here
       # puts 'good login'
       reset_session
-      if params[:session][:remember_me]
+      if params[:session][:remember_me]=="1"
         remember(user)
       end
       log_in user
