@@ -55,11 +55,15 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   #   assert_redirected_to user_url(@user)
   # end
 
-  # test "should destroy user" do
-  #   assert_difference('User.count', -1) do
-  #     delete user_url(@user)
-  #   end
+  test "should destroy user" do
+    log_in_and_remember_as(@user)
+    assert_difference('User.count', -1) do
+      delete user_url(@user)
+    end
 
-  #   assert_redirected_to users_url
-  # end
+    assert_redirected_to root_url
+    assert_nil session[:user_id]
+    assert cookies[:user_id].blank?
+    assert cookies[:remember_token].blank?
+  end
 end

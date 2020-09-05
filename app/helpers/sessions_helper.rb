@@ -62,4 +62,9 @@ module SessionsHelper
     user.save!
   end
 
+  def delete_remember_cookies
+    cookies.delete :user_id
+    cookies.delete :remember_token
+  end
+
 end

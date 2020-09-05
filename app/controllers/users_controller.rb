@@ -88,6 +88,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     reset_session
+    delete_remember_cookies
     redirect_to root_path, notice: 'User was successfully destroyed.'
   end
 
